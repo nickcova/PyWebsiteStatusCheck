@@ -11,7 +11,8 @@ def main(argv):
     """Main entry point for the script."""
 
     # Create a list of sites to check
-    sites_dict = helpers.read_sites_json('sites.json')
+    sites_dict = helpers.read_sites_json('config/sites.json')
+    emails = helpers.read_emails_json('config/emails.json')
 
     if sites_dict is not None:
         request_thread = workers.RequestsThread("Thread-1", sites_dict)
