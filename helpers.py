@@ -1,7 +1,7 @@
 """ TO-DO: Write the module's docstring. """
-from pathlib import Path
 import json
 import re
+from pathlib import Path
 
 def read_sites_json(file_path):
     """Checks if the site's JSON file exists and reads it. Returns

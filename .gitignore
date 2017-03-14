@@ -87,3 +87,7 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# My ignores
+config/emails.json
+config/sites.json
