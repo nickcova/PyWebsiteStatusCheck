@@ -36,3 +36,12 @@ def is_valid_email(email_str):
         if re.match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$", email_str) != None:
             return True
     return False
+
+def read_html_file(file_path):
+    """Reads the contents of an HTML file."""
+    html_file = Path(file_path)
+    if html_file.exists() and html_file.is_file():
+        with html_file.open() as temp_file:
+            contents = temp_file.read()
+            return contents
+    return None
