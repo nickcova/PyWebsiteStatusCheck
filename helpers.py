@@ -45,3 +45,13 @@ def read_html_file(file_path):
             contents = temp_file.read()
             return contents
     return None
+
+def read_email_auth_json(file_path):
+    """Checks if the e-mail authorization's JSON file exists and reads it."""
+    auth_file = Path(file_path)
+    if auth_file.exists() and auth_file.is_file():
+        with auth_file.open() as temp_file:
+            contents = temp_file.read()
+            decoded = json.loads(contents)
+            return decoded
+    return None
