@@ -1,6 +1,7 @@
 """ TO-DO: Write the module's docstring. """
 import json
 import re
+import socket
 from pathlib import Path
 
 def read_sites_json(file_path):
@@ -55,3 +56,18 @@ def read_email_auth_json(file_path):
             decoded = json.loads(contents)
             return decoded
     return None
+
+def check_internet_connection(host="8.8.8.8", port=53, timeout=3):
+    """
+    Host: 8.8.8.8 (google-public-dns-a.google.com)
+    OpenPort: 53/tcp
+    Service: domain (DNS/TCP)
+    """
+    try:
+        socket.setdefaulttimeout(timeout)
+        socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect((host, port))
+        return True
+    except Exception as ex:
+        print(ex.message)
+        
+    return False

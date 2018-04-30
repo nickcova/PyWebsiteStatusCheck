@@ -7,6 +7,7 @@ from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from helpers import read_html_file
+from socket import gaierror
 
 REQUEST_TIMEOUT = 10
 
@@ -53,9 +54,15 @@ def check_site_status(site_url, emails, email_auth_data):
             send_email_notification(email_auth_data, emails, site_url, ex1.reason, ex1.code)
     except urllib.error.URLError as ex2:
         if hasattr(ex2, "reason"):
+            exReason = ""
             print("\x1b[0;37;41m" + " Warning " + "\x1b[0m" + "We failed to reach a server.")
-            print("Reason: ", ex2.reason)
-            send_email_notification(email_auth_data, emails, site_url, ex2.reason)
+            if isinstance(ex2.reason, str):
+                exReason = ex2.reason
+                print("Reason: ", ex2.reason)
+            elif isinstance(ex2.reason, gaierror):
+                exReason = str(ex2.reason)
+                print("Reason: ", str(ex2.reason))
+            send_email_notification(email_auth_data, emails, site_url, exReason)
 
 def send_email_notification(email_auth_data, emails, site, reason, code="N/A"):
     """Sends an email with the site, reason and request code"""
